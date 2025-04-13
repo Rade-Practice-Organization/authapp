@@ -15,7 +15,7 @@ class RegisterRequest extends FormRequest
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
-    public function getData()
+    public function getData(): RegisterData
     {
         return new RegisterData(
             name: $this->input('name'),

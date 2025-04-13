@@ -3,16 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Http\FormRequests\RegisterRequest;
-use App\Http\Services\RegisterService;
+use App\Http\Services\AuthService;
 
 class RegisterController extends Controller
 {
-    public function __construct(private readonly RegisterService $registerService)
+    public function __construct(private readonly AuthService $registerService)
     {
     }
 
     public function __invoke(RegisterRequest $request)
     {
-        $this->registerService->store($request->getData());
+        $user = $this->registerService->register($request->getData());
+
+        return response()->json([
+            'token' => $user->createToken('token')->plainTextToken,
+        ]);
     }
 }

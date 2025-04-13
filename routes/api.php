@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -12,7 +13,7 @@ Route::middleware(['throttle:api'])->group(function () {
     Route::prefix('/auth')->group(function () {
         Route::middleware(['guest:web', 'throttle:login'])->group(function () {
             Route::middleware(['throttle:login'])->group(function () {
-//                Route::post("/login", LoginController::class)->name('auth.login');
+                Route::post("/login", LoginController::class)->name('auth.login');
                 Route::post("/register", RegisterController::class)->name('auth.register');
 //                Route::post("/forgot-password", ForgotPasswordController::class)->name('auth.forgot-password');
 //                Route::post("/reset-password", ResetPasswordController::class)->name('auth.reset-password');
