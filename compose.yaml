@@ -15,7 +15,7 @@ services:
         extra_hosts:
             - "host.docker.internal:host-gateway"
         environment:
-            LARAVEL_ENV_ENCRYPTION_KEY: base64:KESla2MHT93tw0UG7N4xl4XTHT0ihIiuAf7BX6cper4=
+            LARAVEL_ENV_ENCRYPTION_KEY: base64:uAWay8y/e9I5NRRqBoTdUhZ7m6i/x5HAvIJ8BYoxEbU=
             #TT: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
     nginx:
         image: nginx:alpine
