@@ -1,27 +1,29 @@
-# Use PHP 8.3 FPM as the base image
 FROM php:8.4-fpm
-ARG USER=www-data
-ARG USER
 
+# Setup UID/GID build arguments
+ARG APP_UID=1000
+ARG APP_GID=1000
+
+# Install PHP extensions
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
-# Install system dependencies for PHP extensions
 RUN chmod +x /usr/local/bin/install-php-extensions && \
     install-php-extensions amqp bcmath gd intl opcache pdo_mysql pdo_pgsql sockets xsl zip xdebug pcov
 
-RUN docker-php-ext-enable xdebug \
-    && echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.client_host = host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+# Enable and configure xdebug
+RUN docker-php-ext-enable xdebug && \
+    echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
+    echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
-# Install Composer globally
+# Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Set the working directory inside the container
+# Create custom user and group to match host
+RUN groupadd -g ${APP_GID} appgroup && \
+    useradd -u ${APP_UID} -g appgroup -m appuser
+
+# Set working directory
 WORKDIR /app
-RUN chown -R ${USER}:${USER} /app
-
-COPY composer.* ./
-
-
+RUN chown -R appuser:appgroup /app
 
 
 #### This is project specific ####
@@ -29,8 +31,13 @@ COPY composer.* ./
 # Composer install
 #RUN composer install --prefer-dist --no-scripts --no-interaction
 # Copy the entrypoint script
-#COPY ./.server/docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY --chown=root:root ./.server/docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 # Ensure the entrypoint script is executable
-#RUN chmod +x /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 # Use the entrypoint script
-#ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+CMD ["php-fpm"]
+
+USER appuser
+
