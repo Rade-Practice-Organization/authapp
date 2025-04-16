@@ -1,8 +1,8 @@
 FROM php:8.4-fpm
 
 # Setup UID/GID build arguments
-ARG APP_UID=1000
-ARG APP_GID=1000
+ARG APP_UID=1001
+ARG APP_GID=1001
 
 # Install PHP extensions
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/

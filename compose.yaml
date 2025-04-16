@@ -4,8 +4,8 @@ services:
             context: .
             dockerfile: .server/docker/Dockerfile
             args:
-                APP_UID: 1000 # 👈 Set this to your host UID: run `id -u` in terminal
-                APP_GID: 1000 # 👈 Set this to your host GID: run `id -g`
+                APP_UID: 1001 # 👈 Set this to your host UID: run `id -u` in terminal
+                APP_GID: 1001 # 👈 Set this to your host GID: run `id -g`
         volumes:
             - ./:/app
         working_dir: /app
