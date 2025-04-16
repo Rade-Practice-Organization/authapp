@@ -10,12 +10,14 @@ services:
             - ./:/app
         working_dir: /app
         # TIP: Get your UID/GID with `id -u` and `id -g` on Linux/macOS
-        user: "1000:1000" # 👈 Same here: match your host UID:GID
+        user: "1001:1001" # 👈 Same here: match your host UID:GID
         depends_on:
             mysql:
                 condition: service_healthy
         environment:
             LARAVEL_ENV_ENCRYPTION_KEY: base64:uAWay8y/e9I5NRRqBoTdUhZ7m6i/x5HAvIJ8BYoxEbU=
+            APP_UID: 1001
+            APP_GID: 1001
         networks:
             - app-network
         extra_hosts:
