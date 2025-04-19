@@ -3,6 +3,7 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\Tenants\OrganizationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,8 @@ Route::middleware(['throttle:api'])->group(function () {
             Route::middleware(['throttle:login'])->group(function () {
                 Route::post("/login", LoginController::class)->name('auth.login');
                 Route::post("/register", RegisterController::class)->name('auth.register');
+
+                Route::post('/organizations', [OrganizationController::class, 'store']);
 //                Route::post("/forgot-password", ForgotPasswordController::class)->name('auth.forgot-password');
 //                Route::post("/reset-password", ResetPasswordController::class)->name('auth.reset-password');
 //
