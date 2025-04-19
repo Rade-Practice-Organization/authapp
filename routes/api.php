@@ -16,7 +16,7 @@ Route::middleware(['throttle:api'])->group(function () {
         Route::get('/logout', LogoutController::class)->middleware('auth:sanctum');
     });
 
-    Route::middleware(['auth:sanctum'])->group(function () {
+    Route::middleware(['auth:sanctum', 'abilities:data:create'])->group(function () {
         Route::post('/organizations', [OrganizationController::class, 'store'])->name('organizations.store');
     });
 

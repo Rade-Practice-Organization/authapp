@@ -13,6 +13,7 @@ class RegisterRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role' => ['required', 'string'],
         ];
     }
     public function getData(): RegisterData
@@ -20,7 +21,8 @@ class RegisterRequest extends FormRequest
         return new RegisterData(
             name: $this->input('name'),
             email: $this->input('email'),
-            password: $this->input('password')
+            password: $this->input('password'),
+            role: $this->input('role')
         );
     }
 }

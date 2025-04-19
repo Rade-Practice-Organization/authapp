@@ -15,6 +15,7 @@ class AuthService
         $user = (new User())->fill([
             'name' => $data->getName(),
             'email' => $data->getEmail(),
+            'role' => $data->getRole(),
         ]);
         $user->password = $data->getPassword();
         $user->save();
@@ -36,9 +37,11 @@ class AuthService
             ]);
         }
 
+        $abilities = $user->getAbilitiesForRole($user);
+
         return [
             'user' => $user,
-            'token' => $user->createToken('token')->plainTextToken,
+            'token' => $user->createToken(name: 'token', abilities: $abilities)->plainTextToken,
         ];
     }
 }

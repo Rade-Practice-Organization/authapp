@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Tenants;
 use App\Http\Controllers\Controller;
 use App\Models\Organization;
 use Ramsey\Uuid\Uuid;
-use Stancl\Tenancy\Database\Models\Domain;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class OrganizationController extends Controller
@@ -14,7 +13,7 @@ class OrganizationController extends Controller
     {
         $organization = new Organization();
         $organization->id = Uuid::uuid4();
-        $organization->name = 'Test company 2';
+        $organization->name = 'Test company';
         $organization->country = 'Serbia';
         $organization->city = 'Novi Sad';
         $organization->address = 'BBB';

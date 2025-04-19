@@ -8,6 +8,7 @@ readonly class RegisterData
         private string $name,
         private string $email,
         private string $password,
+        private string $role,
     ) {
     }
 
@@ -24,5 +25,9 @@ readonly class RegisterData
     public function getPassword(): string
     {
         return $this->password;
+    }
+    public function getRole(): string
+    {
+        return $this->role;
     }
 }
