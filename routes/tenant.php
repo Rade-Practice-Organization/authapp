@@ -35,10 +35,5 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
-    Route::middleware(['guest:web', 'throttle:login'])->group(function () {
-        Route::middleware(['throttle:login'])->group(function () {
-            Route::post("/login", LoginController::class)->name('auth.login');
-            Route::post("/api/register", RegisterController::class);
-        });
-    });
+    include 'tenant/api.php';
 });

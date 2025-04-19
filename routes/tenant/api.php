@@ -1,0 +1,23 @@
+<?php
+
+declare(strict_types=1);
+
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
+
+
+Route::prefix('/tenant')->group(function () {
+    Route::middleware([
+        'throttle:api',
+        'guest:web',
+        'throttle:login',
+    ])->group(function () {
+        Route::prefix('/auth')->group(function () {
+            Route::middleware(['throttle:login'])->group(function () {
+                Route::post("/login", LoginController::class)->name('auth.login');
+                Route::post("/register", RegisterController::class);
+            });
+        });
+    });
+});
+
