@@ -23,9 +23,8 @@ class CreateTenantsTable extends Migration
             $table->string('city');
             $table->string('address');
 
-            // your custom columns may go here
-
             $table->timestamps();
+            $table->softDeletes();
             $table->json('data')->nullable();
         });
     }
