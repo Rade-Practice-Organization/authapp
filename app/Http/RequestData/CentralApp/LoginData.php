@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Services\RequestData;
+namespace App\Http\RequestData\CentralApp;
 
-class LoginData
+readonly class LoginData
 {
     public function __construct(
-        private readonly string $email,
-        private readonly string $password
+        private string $email,
+        private string $password
     ) {
     }
 

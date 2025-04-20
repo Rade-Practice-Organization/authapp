@@ -2,9 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-
 
 Route::prefix('/tenant')->group(function () {
     Route::middleware(['throttle:api', 'guest:web', 'throttle:login'])->group(function () {

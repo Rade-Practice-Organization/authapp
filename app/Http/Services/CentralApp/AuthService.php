@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Http\Services\CentralApp;
 
-use App\Http\Services\RequestData\LoginData;
-use App\Http\Services\RequestData\RegisterData;
+use App\Http\RequestData\CentralApp\LoginData;
+use App\Http\RequestData\CentralApp\RegisterData;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
