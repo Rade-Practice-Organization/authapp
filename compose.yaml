@@ -54,7 +54,7 @@ services:
         volumes:
             - database_data:/var/lib/mysql
             - ./.server/mysql/my.cnf:/etc/my.cnf
-            - ./.server/mysql/initDb.d:/etc/initDb.d
+            - ./.server/mysql/permissions.sql:/docker-entrypoint-initdb.d/permissions.sql
         ports:
             - "127.0.0.2:3306:3306"
         healthcheck:
