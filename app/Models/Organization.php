@@ -19,10 +19,4 @@ class Organization extends BaseTenant implements TenantWithDatabase
     {
         return ['id', 'name', 'country', 'city', 'address'];
     }
-
-    public static function booted() {
-        static::creating(function ($model) {
-            $model->id = Uuid::uuid4();
-        });
-    }
 }
