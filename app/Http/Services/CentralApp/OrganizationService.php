@@ -4,21 +4,36 @@ namespace App\Http\Services\CentralApp;
 
 use App\Http\RequestData\CentralApp\OrganizationData;
 use App\Models\Organization;
+use Illuminate\Support\Collection;
 use Ramsey\Uuid\Uuid;
 
 class OrganizationService
 {
-    public function store(OrganizationData $data): Organization
+    public function index(): Collection
     {
-        $organization = new Organization();
-        $organization->fill([
-            'id' => Uuid::uuid4(),
-            "name" => $data->getName(),
-            "country" => $data->getCountry(),
-            "city" => $data->getCity(),
-            "address" => $data->getAddress(),
-        ]);
-        $organization->tenancy_db_name = $organization->id . '_' . $this->normalize_database_name($organization->name);
+        return Organization::all();
+    }
+
+    public function store(OrganizationData $data, ?Organization $organization = null): Organization
+    {
+        if ($organization) {
+            $organization->fill([
+                "name" => $data->getName(),
+                "country" => $data->getCountry(),
+                "city" => $data->getCity(),
+                "address" => $data->getAddress(),
+            ]);
+        } else {
+            $organization = new Organization();
+            $organization->fill([
+                'id' => Uuid::uuid4(),
+                "name" => $data->getName(),
+                "country" => $data->getCountry(),
+                "city" => $data->getCity(),
+                "address" => $data->getAddress(),
+            ]);
+            $organization->tenancy_db_name = $organization->id . '_' . $this->normalize_database_name($organization->name);
+        }
         $organization->save();
 
         return $organization;

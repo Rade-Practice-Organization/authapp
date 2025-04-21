@@ -17,6 +17,24 @@ Route::middleware(['throttle:api'])->group(function () {
         Route::get('/logout', LogoutController::class)->middleware('auth:sanctum');
     });
 
+    Route::prefix('/organizations')->group(function () {
+        Route::middleware(['auth:sanctum', 'abilities:data:view'])->group(function () {
+            Route::get('/', [OrganizationController::class, 'index'])->name('organizations.index');
+        });
+        Route::middleware(['auth:sanctum', 'abilities:data:view'])->group(function () {
+            Route::get('/{organization}', [OrganizationController::class, 'show'])->name('organizations.show');
+        });
+        Route::middleware(['auth:sanctum', 'abilities:data:create'])->group(function () {
+            Route::post('/', [OrganizationController::class, 'store'])->name('organizations.store');
+        });
+        Route::middleware(['auth:sanctum', 'abilities:data:update'])->group(function () {
+            Route::patch('/{organization}', [OrganizationController::class, 'update'])->name('organizations.update');
+        });
+        Route::middleware(['auth:sanctum', 'abilities:data:delete'])->group(function () {
+            Route::delete('/{organization}', [OrganizationController::class, 'delete'])->name('organizations.delete');
+        });
+    });
+
     Route::prefix('/tenant-auth')->group(function () {
         Route::middleware(['guest:web_tenant', 'throttle:login'])->group(function () {
             //Route::post("/login", LoginController::class)->name('auth.login');
@@ -25,9 +43,7 @@ Route::middleware(['throttle:api'])->group(function () {
         Route::get('/logout', LogoutController::class)->middleware('auth:sanctum');
     });
 
-    Route::middleware(['auth:sanctum', 'abilities:data:create'])->group(function () {
-        Route::post('/organizations', [OrganizationController::class, 'store'])->name('organizations.store');
-    });
+
 
     Route::get('/user', function (Request $request) {
         return $request->user();
