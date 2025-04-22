@@ -16,6 +16,7 @@ class AuthService
             'name' => $data->getName(),
             'email' => $data->getEmail(),
             'role' => $data->getRole(),
+            'type' => $data->getType(),
         ]);
         $user->password = $data->getPassword();
         $user->save();
