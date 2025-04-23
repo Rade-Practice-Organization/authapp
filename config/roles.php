@@ -15,8 +15,8 @@ return [
     ],
 
     'abilities' => [
-        'super_admin' => ['data:update', 'data:delete', 'data:view', 'data:create'],
-        'admin' => ['data:update', 'data:view'],
+        'super_admin' => ['data:delete', 'data:create'],
+        'admin' => ['data:update'],
         'user' => ['data:view'],
 
         'tenant_super_admin' => ['tenant:admin'],

@@ -16,10 +16,10 @@ class RegisterRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'type' => ['required', 'string', Rule::in(['system_user', 'tenant_user'])],
+            'type' => ['required', 'string', Rule::enum(UserTypeEnum::class)],
             'role' => [
                 Rule::requiredIf(fn () => $this->enum('type', UserTypeEnum::class) === UserTypeEnum::SYSTEM_USER),
-                //Rule::in(UserRolesEnum::systemRoles())
+                Rule::in(UserRolesEnum::systemRoles())
             ],
         ];
     }

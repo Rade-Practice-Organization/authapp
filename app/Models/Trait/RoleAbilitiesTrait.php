@@ -11,12 +11,7 @@ trait RoleAbilitiesTrait
         $hierarchy = config('roles.role_hierarchy');
         $abilitiesMap = config('roles.abilities');
 
-        if ($user->role) {
-            $roles = [$user->role->value];
-        } else {
-            return [];
-        }
-
+        $roles = [$user->role->value];
 
         // Recursively get inherited roles
         $check = [$user->role->value];

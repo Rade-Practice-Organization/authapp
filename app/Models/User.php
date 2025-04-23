@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Http\Enums\Auth\UserRolesEnum;
+use App\Http\Enums\Auth\UserTypeEnum;
 use App\Models\Trait\RoleAbilitiesTrait;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -50,6 +52,8 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'type' => UserTypeEnum::class,
+            'role' => UserRolesEnum::class,
         ];
     }
 
