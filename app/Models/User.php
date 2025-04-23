@@ -57,7 +57,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function organizationsUsers(): HasMany
+    public function organizations(): HasMany
     {
         return $this->hasMany(OrganizationUsers::class);
     }

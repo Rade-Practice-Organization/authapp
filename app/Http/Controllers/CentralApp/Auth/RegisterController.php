@@ -15,7 +15,7 @@ class RegisterController extends Controller
     public function __invoke(RegisterRequest $request)
     {
         $user = $this->registerService->register($request->getData());
-        $abilities = $user->getAbilitiesForRole($user);
+        $abilities = $user->getAbilitiesForSystemRole($user);
 
         return response()->json([
             'token' => $user->createToken(name: 'token', abilities: $abilities)->plainTextToken,

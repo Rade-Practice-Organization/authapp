@@ -47,7 +47,7 @@ class AuthTenantService
             ]);
         }
 
-        $abilities = $user->getAbilitiesForRole($user);
+        $abilities = $user->getAbilitiesForSystemRole($user);
 
         return [
             'user' => $user,

@@ -6,30 +6,33 @@ use App\Models\User;
 
 trait RoleAbilitiesTrait
 {
-    public function getAbilitiesForRole(User $user): array
+    public function getAbilitiesForSystemRole(User $user): array
     {
         $hierarchy = config('roles.role_hierarchy');
-        $abilitiesMap = config('roles.abilities');
 
         $roles = [$user->role->value];
+        $roles = array_merge($roles, $hierarchy[$user->role->value] ?? []);
 
-        // Recursively get inherited roles
-        $check = [$user->role->value];
-        while ($check) {
-            $current = array_pop($check);
-            foreach ($hierarchy[$current] ?? [] as $inheritedRole) {
-                if (!in_array($inheritedRole, $roles, true)) {
-                    $roles[] = $inheritedRole;
-                    $check[] = $inheritedRole;
-                }
-            }
-        }
+        return $this->calculateAbilities($roles);
+    }
 
-        // Merge abilities for all roles
-        $abilities = [];
-        foreach ($roles as $r) {
-            $abilities = array_merge($abilities, $abilitiesMap[$r] ?? []);
-        }
+    public function getAbilitiesForTenantRole(User $user): array
+    {
+        $hierarchy = config('roles.role_hierarchy');
+
+        $roles = [$user->organizationsUsers->role->value];
+        $roles = array_merge($roles, $hierarchy[$user->role->value] ?? []);
+
+        return $this->calculateAbilities($roles);
+    }
+
+    private function calculateAbilities(array $roles): array
+    {
+        $abilitiesMap = config('roles.abilities');
+
+        $abilities = array_merge(...array_map(function ($role) use ($abilitiesMap) {
+            return $abilitiesMap[$role];
+        }, $roles));
 
         return array_unique($abilities);
     }

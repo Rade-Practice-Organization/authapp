@@ -36,7 +36,7 @@ Route::middleware(['throttle:api'])->group(function () {
     });
 
     Route::prefix('/tenant-auth')->group(function () {
-        Route::middleware(['guest:web_tenant', 'throttle:login'])->group(function () {
+        Route::middleware(['auth:sanctum', 'throttle:login', 'abilities:data:create'])->group(function () {
             //Route::post("/login", LoginController::class)->name('auth.login');
             Route::post("/register", RegisterTenantController::class)->name('auth.tenant_register');
         });

@@ -2,8 +2,10 @@
 
 namespace App\Http\FormRequests\TenantApp;
 
+use App\Http\Enums\Auth\UserRolesEnum;
 use App\Http\RequestData\TenantApp\RegisterTenantData;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class RegisterTenantRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class RegisterTenantRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'role' => ['required', 'string'],
+            'role' => ['required', Rule::in(UserRolesEnum::tenantRoles())],
             'organization_id' => ['required', 'exists:organizations,id']
         ];
     }
