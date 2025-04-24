@@ -9,6 +9,7 @@ use App\Models\User;
 use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Ramsey\Uuid\Uuid;
 
 class AuthTenantService
 {
@@ -21,13 +22,13 @@ class AuthTenantService
         $user->password = $data->getPassword();
 
         $organizationUsers = new OrganizationUsers();
-        $organizationUsers->user_id = $user->id;
         $organizationUsers->organization_id = $data->getOrganizationId();
         $organizationUsers->role = $data->getRole();
 
         DB::transaction(function () use ($organizationUsers, $user) {
-            $organizationUsers->save();
             $user->save();
+            $organizationUsers->user_id = $user->id;
+            $organizationUsers->save();
         });
 
         return $user;

@@ -20,6 +20,8 @@ trait RoleAbilitiesTrait
     {
         $hierarchy = config('roles.role_hierarchy');
 
+        $orgs = $user->organizationsUsers;
+
         $roles = [$user->organizationsUsers->role->value];
         $roles = array_merge($roles, $hierarchy[$user->role->value] ?? []);
 

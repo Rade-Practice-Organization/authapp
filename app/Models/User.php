@@ -13,12 +13,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Ramsey\Uuid\Uuid;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, HasApiTokens, RoleAbilitiesTrait, SoftDeletes;
 
+    protected $keyType = 'string';
+    public $incrementing = false;
     /**
      * The attributes that are mass assignable.
      *
@@ -55,6 +58,13 @@ class User extends Authenticatable
             'type' => UserTypeEnum::class,
             'role' => UserRolesEnum::class,
         ];
+    }
+
+    public static function booted(): void
+    {
+        static::creating(static function ($model) {
+            $model->id = Uuid::uuid4();
+        });
     }
 
     public function organizations(): HasMany
