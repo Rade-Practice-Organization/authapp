@@ -12,7 +12,6 @@ trait RoleAbilitiesTrait
 
         $roles = [$user->role->value];
         $roles = array_merge($roles, $hierarchy[$user->role->value] ?? []);
-        //$fff = $this->calculateRoles($roles);
 
         return $this->calculateAbilities($roles);
     }
