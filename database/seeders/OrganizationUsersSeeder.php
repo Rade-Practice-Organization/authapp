@@ -16,7 +16,7 @@ class OrganizationUsersSeeder extends Seeder
     public function run(): void
     {
         $organizations = Organization::all();
-        $users = User::whereNull('role')->inRandomOrder()->limit(5)->get();
+        $users = User::where('role', 'USER')->get();
 
         foreach ($organizations as $organization) {
             foreach ($users as $user) {

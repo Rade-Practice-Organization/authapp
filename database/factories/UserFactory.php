@@ -43,13 +43,4 @@ class UserFactory extends Factory
             ];
         });
     }
-
-    public function withUserType(UserTypeEnum $type): self
-    {
-        return $this->state(function () use ($type) {
-            return [
-                'type' => $type,
-            ];
-        });
-    }
 }

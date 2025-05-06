@@ -12,17 +12,10 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         foreach (UserRolesEnum::systemRoles() as $systemRole) {
+            $count = $systemRole === UserRolesEnum::USER ? 10 : 2;
             UserFactory::new()
-                ->withUserType(UserTypeEnum::SYSTEM_USER)
                 ->withRole($systemRole)
-                ->count(2)
-                ->create();
-        }
-
-        foreach (UserRolesEnum::tenantRoles() as $tenantRole) {
-            UserFactory::new()
-                ->withUserType(UserTypeEnum::TENANT_USER)
-                ->count(2)
+                ->count($count)
                 ->create();
         }
     }

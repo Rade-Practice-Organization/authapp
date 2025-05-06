@@ -15,7 +15,14 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignUuid('organization_id')->constrained('organizations')->cascadeOnDelete();
-            $table->string('role');
+            $table->enum('role', [
+                'TENANT_SUPER_ADMIN',
+                'TENANT_SALES_MANAGER',
+                'TENANT_DEVELOPER_ADMIN',
+                'TENANT_DEVELOPER',
+                'TENANT_BROKER_ADMIN',
+                'TENANT_BROKER',
+            ]);
             $table->unique(['user_id', 'organization_id']);
             $table->timestamps();
             $table->softDeletes();

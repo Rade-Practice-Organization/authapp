@@ -15,24 +15,13 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('email')->unique();
-            $table->enum('role', ['super_admin', 'admin', 'user'])->nullable();
-            $table->enum('type', ['system_user', 'tenant_user'])->default('tenant_user');
+            $table->enum('role', ['SUPER_ADMIN', 'ADMIN', 'USER'])->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
         });
-
-        DB::statement("
-            ALTER TABLE users
-            ADD CONSTRAINT check_role_based_on_type
-            CHECK (
-                (type = 'system_user' AND role IN ('super_admin', 'admin', 'user'))
-                OR
-                (type = 'tenant_user' AND role IS NULL)
-            )
-        ");
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
