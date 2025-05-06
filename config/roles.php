@@ -2,16 +2,16 @@
 
 return [
     'role_hierarchy' => [
-        'super_admin' => ['admin', 'user'],
-        'admin' => ['user'],
-        'user' => [],
+        'SUPER_ADMIN' => ['ADMIN', 'USER'],
+        'ADMIN' => ['USER'],
+        'USER' => [],
 
-        'tenant_super_admin' => ['tenant_sales_manager'],
-        'tenant_sales_manager' => ['tenant_developer_admin'],
-        'tenant_developer_admin' => ['tenant_developer'],
-        'tenant_developer' => ['tenant_broker_admin', 'tenant_developer'],
-        'tenant_broker_admin' => ['tenant_broker_admin'],
-        'tenant_broker' => [],
+        'TENANT_SUPER_ADMIN' => ['TENANT_SALES_MANAGER'],
+        'TENANT_SALES_MANAGER' => ['TENANT_DEVELOPER_ADMIN'],
+        'TENANT_DEVELOPER_ADMIN' => ['TENANT_DEVELOPER'],
+        'TENANT_DEVELOPER' => ['TENANT_BROKER_ADMIN'],
+        'TENANT_BROKER_ADMIN' => ['TENANT_BROKER'],
+        'TENANT_BROKER' => [],
     ],
 
     'abilities' => [
