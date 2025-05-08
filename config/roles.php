@@ -15,15 +15,15 @@ return [
     ],
 
     'abilities' => [
-        'super_admin' => ['data:delete', 'data:create'],
-        'admin' => ['data:update'],
-        'user' => ['data:view'],
+        'SUPER_ADMIN' => ['data:delete', 'data:create'],
+        'ADMIN' => ['data:update'],
+        'USER' => ['data:view'],
 
-        'tenant_super_admin' => ['tenant:admin'],
-        'tenant_sales_manager' => ['sales_manager:all'],
-        'tenant_developer_admin' => ['developer:create', 'developer:delete'],
-        'tenant_developer' => ['developer:view', 'developer:update'],
-        'tenant_broker_admin' => ['broker:create', 'broker:delete'],
-        'tenant_broker' => ['broker:view', 'broker:update'],
+        'TENANT_SUPER_ADMIN' => ['tenant:admin'],
+        'TENANT_SALES_MANAGER' => ['sales_manager:all'],
+        'TENANT_DEVELOPER_ADMIN' => ['developer:create', 'developer:delete'],
+        'TENANT_DEVELOPER' => ['developer:view', 'developer:update'],
+        'TENANT_BROKER_ADMIN' => ['broker:create', 'broker:delete'],
+        'TENANT_BROKER' => ['broker:view', 'broker:update'],
     ],
 ];
