@@ -1,4 +1,4 @@
-name: BE / Tests
+name: PHPUnit Tests
 
 on:
     push:
@@ -10,7 +10,6 @@ concurrency:
 
 jobs:
     run-tests:
-        name: Tests
         runs-on: ubuntu-latest
         env:
             APP_ENV: testing
