@@ -10,6 +10,7 @@ concurrency:
 
 jobs:
     run-tests:
+        name: Tests
         runs-on: ubuntu-latest
         env:
             APP_ENV: testing
