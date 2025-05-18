@@ -61,4 +61,9 @@ jobs:
                   QUEUE_CONNECTION: sync
                   SESSION_DRIVER: array
                   CACHE_DRIVER: array
-              run: php artisan test --parallel --stop-on-failure --stop-on-error
+              run: php artisan test --parallel --stop-on-failure --stop-on-error --coverage-clover=clover.xml
+            - name: Code coverage check
+              run: bash .github/script/code_coverage.sh
+              env:
+                  PHPUNIT_CODE_COVERAGE_PERCENTAGE_MINIMUM: 90
+
