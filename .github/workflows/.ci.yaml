@@ -67,5 +67,5 @@ jobs:
             - name: Code coverage check
               run: bash .github/scripts/code_coverage.sh
               env:
-                  PHPUNIT_CODE_COVERAGE_PERCENTAGE_MINIMUM: 20
+                  PHPUNIT_CODE_COVERAGE_PERCENTAGE_MINIMUM: 90
 
