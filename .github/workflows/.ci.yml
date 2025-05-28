@@ -15,7 +15,7 @@ jobs:
             APP_ENV: testing
 
             DB_HOST: 127.0.0.1
-            DB_DATABASE: brokers_and_developers_testing
+            DB_DATABASE: auth_api
             DB_USERNAME: root
             DB_PASSWORD: root
         steps:
