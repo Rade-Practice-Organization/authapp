@@ -1,0 +1,14 @@
+name: Tests
+on: [push]
+
+jobs:
+    phpunit:
+        name: PHPUnit
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v1
+            - run: composer install --prefer-dist
+            - run: cp .env.example .env
+            - run: php artisan key:generate
+            - run: php vendor/bin/phpunit
+            #- uses: nathanheffley/laravel-phpunit-action@master
